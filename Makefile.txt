@@ -1,0 +1,34 @@
+# Derleyici
+CC = gcc
+# Derleme bayrakları
+CFLAGS = -Wall -std=c99
+
+# Object dosyaları (derlenecek dosyalar)
+OBJFILES = main.o player.o room.o game.o
+
+# Çalıştırılabilir dosya ismi
+EXEC = dungeon
+
+# Çalıştırılabilir dosyayı oluşturacak ana hedef
+$(EXEC): $(OBJFILES)
+	$(CC) $(OBJFILES) -o $(EXEC)
+
+# main.c dosyasını derleyin
+main.o: main.c main.h player.h room.h game.h
+	$(CC) $(CFLAGS) -c main.c
+
+# player.c dosyasını derleyin
+player.o: player.c player.h
+	$(CC) $(CFLAGS) -c player.c
+
+# room.c dosyasını derleyin
+room.o: room.c room.h
+	$(CC) $(CFLAGS) -c room.c
+
+# game.c dosyasını derleyin
+game.o: game.c game.h player.h room.h
+	$(CC) $(CFLAGS) -c game.c
+
+# Clean komutu, gereksiz dosyaları temizler
+clean:
+	rm -f $(OBJFILES) $(EXEC)
